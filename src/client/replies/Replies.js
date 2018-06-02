@@ -63,7 +63,7 @@ class Replies extends React.Component {
     return (
       <div className="shifted">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'replies', defaultMessage: 'Replies' })} - Busy</title>
+          <title>{intl.formatMessage({ id: 'replies', defaultMessage: 'Replies' })} Ezira</title>
         </Helmet>
         <div className="feed-layout container">
           <Affix className="leftContainer" stickPosition={77}>
@@ -71,11 +71,11 @@ class Replies extends React.Component {
               <LeftSidebar />
             </div>
           </Affix>
-          <Affix className="rightContainer" stickPosition={77}>
+          {/* <Affix className="rightContainer" stickPosition={77}>
             <div className="right">
               <RightSidebar />
             </div>
-          </Affix>
+          </Affix> */}
           <div className="center">
             <Feed
               content={content}

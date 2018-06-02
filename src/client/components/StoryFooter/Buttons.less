@@ -4,20 +4,30 @@
   color: @blue-botticelli;
   font-size: 14px;
   font-weight: bold;
-
   &__reactions-count {
     cursor: pointer;
     &:hover {
       color: @primary-color;
     }
   }
-
+	& i {
+		vertical-align: middle;
+		margin-right: 4px;
+		color: @blue-linkWater;
+		&:hover,
+    &.active {
+      color: @primary-color;
+    }
+	}
+	& > span {
+		vertical-align: middle;
+	}
   &__link {
     color: @blue-botticelli;
     transition: none;
-
+		width: auto;
     & > .iconfont {
-      margin-right: 4px;
+			margin-right: 4px;
       font-size: 24px !important;
       color: @blue-linkWater;
     }

@@ -24,7 +24,8 @@ import Affix from '../components/Utils/Affix';
 import LeftSidebar from '../app/Sidebar/LeftSidebar';
 import RawSlider from '../components/Slider/RawSlider';
 import requiresLogin from '../auth/requiresLogin';
-import { SUPPORTED_LANGUAGES } from '../../common/constants/settings';
+import LANGUAGES from '../translations/languages';
+import { getLanguageText } from '../translations';
 import './Settings.less';
 
 @requiresLogin
@@ -185,10 +186,10 @@ export default class Settings extends React.Component {
       );
     }
 
-    Object.keys(SUPPORTED_LANGUAGES).forEach(key => {
+    LANGUAGES.forEach(lang => {
       languageOptions.push(
-        <Select.Option key={key} value={key}>
-          {SUPPORTED_LANGUAGES[key].longName}
+        <Select.Option key={lang.id} value={lang.id}>
+          {getLanguageText(lang)}
         </Select.Option>,
       );
     });
@@ -196,7 +197,9 @@ export default class Settings extends React.Component {
     return (
       <div className="shifted">
         <Helmet>
-          <title>{intl.formatMessage({ id: 'settings', defaultMessage: 'Settings' })} - Busy</title>
+          <title>
+            {intl.formatMessage({ id: 'settings', defaultMessage: 'Settings' })} Ezira
+          </title>
         </Helmet>
         <div className="settings-layout container">
           <Affix className="leftContainer" stickPosition={77}>
@@ -302,7 +305,7 @@ export default class Settings extends React.Component {
                   <p>
                     <FormattedMessage
                       id="rewrite_links_details"
-                      defaultMessage="You can enable this option to replace Steemit.com links with Busy.org links."
+                      defaultMessage="You can enable this option to replace Steemit.com links with Ezira.io links."
                     />
                   </p>
                   <div className="Settings__section__checkbox">

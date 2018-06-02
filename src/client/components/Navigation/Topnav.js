@@ -116,7 +116,7 @@ class Topnav extends React.Component {
 
   menuForLoggedOut = () => {
     const { location } = this.props;
-    const { searchBarActive } = this.state;
+    const { searchBarActive, notificationsPopoverVisible, popoverVisible } = this.state;
     const next = location.pathname.length > 1 ? location.pathname : '';
 
     return (
@@ -139,9 +139,58 @@ class Topnav extends React.Component {
               <FormattedMessage id="login" defaultMessage="Log in" />
             </a>
           </Menu.Item>
-          <Menu.Item key="language">
-            <LanguageSettings />
+          <Menu.Item key="more" className="Topnav__menu--icon">
+            <Popover
+              placement="bottom"
+              trigger="click"
+              visible={popoverVisible}
+              onVisibleChange={this.handleMoreMenuVisibleChange}
+              overlayStyle={{ position: 'fixed' }}
+              content={
+                <PopoverMenu onSelect={this.handleMoreMenuSelect}>
+                  <PopoverMenuItem key="my-profile" fullScreenHidden>
+                    <FormattedMessage id="my_profile" defaultMessage="My profile" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="feed" fullScreenHidden>
+                    <FormattedMessage id="feed" defaultMessage="Feed" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="news" fullScreenHidden>
+                    <FormattedMessage id="news" defaultMessage="News" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="replies" fullScreenHidden>
+                    <FormattedMessage id="replies" defaultMessage="Replies" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="wallet" fullScreenHidden>
+                    <FormattedMessage id="wallet" defaultMessage="Wallet" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="activity">
+                    <FormattedMessage id="activity" defaultMessage="Activity" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="bookmarks">
+                    <FormattedMessage id="bookmarks" defaultMessage="Bookmarks" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="drafts">
+                    <FormattedMessage id="drafts" defaultMessage="Drafts" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="settings">
+                    <FormattedMessage id="settings" defaultMessage="Settings" />
+                  </PopoverMenuItem>
+                  <PopoverMenuItem key="logout">
+                    <FormattedMessage id="logout" defaultMessage="Logout" />
+                  </PopoverMenuItem>
+                </PopoverMenu>
+              }
+            >
+              <a className="Topnav__link Topnav__link--light">
+                <i className="material-icons">
+									menu
+								</i>
+              </a>
+            </Popover>
           </Menu.Item>
+					{/* <Menu.Item key="menu">
+            <LanguageSettings />
+          </Menu.Item> */}
         </Menu>
       </div>
     );
@@ -264,7 +313,9 @@ class Topnav extends React.Component {
               }
             >
               <a className="Topnav__link Topnav__link--light">
-                <i className="iconfont icon-caretbottom" />
+                <i className="material-icons">
+									menu
+								</i>
               </a>
             </Popover>
           </Menu.Item>
@@ -352,10 +403,10 @@ class Topnav extends React.Component {
         <div className="topnav-layout">
           <div className={classNames('left', { 'Topnav__mobile-hidden': searchBarActive })}>
             <Link className="Topnav__brand" to="/">
-              <i className="iconfont icon-busy Topnav__brand-icon" />
-              busy
+              <i className="iconfont ezicon-ezira Topnav__brand-icon" />
+              Ezira
             </Link>
-            <span className="Topnav__version">beta</span>
+            <span className="Topnav__version">alpha</span>
           </div>
           <div className={classNames('center', { mobileVisible: searchBarActive })}>
             <div className="Topnav__input-container">

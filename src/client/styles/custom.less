@@ -5,24 +5,30 @@
 @white-shadow: rgba(0, 0, 0, 0.05);
 @white-darker: #f9f9f9;
 @white-gainsboro: #e9e7e7;
-@white-ghostWhite: #fafbfc;
+@white-ghostWhite: #fff;
+// @white-ghostWhite: #fafbfc;
+@story-bg-color: #fafbfc;
 @white-smoke: #f2f2f2;
 @black: #000;
 @black-text: rgba(0, 0, 0, 0.84);
 @red: #d9534f;
 @orange: #f6a623;
 @green: #54d2a0;
-@blue-dodgerBlue: #2088ff;
-@blue-navyBlue: #79b8ff;
+@blue-dodgerBlue: #ff2020;
+// @blue-dodgerBlue: #2088ff;
+@blue-navyBlue: lighten(@blue-dodgerBlue, 30%);
+// @blue-navyBlue: #79b8ff;
 @blue-botticelli: #99aab5;
 @blue-hawkesBlue: #e7e9f5;
 @blue-linkWater: #c2ccd3;
 @blue-baliHai: #8798a4;
 @blue-heather: #a1afba;
 @blue-solitude: #f5f6f9;
-@blue-deepSkyBlue: #00aced;
+@blue-deepSkyBlue: darken(@blue-dodgerBlue, 10%);
+// @blue-deepSkyBlue: #00aced;
 @blue-pattensBlue: #f3f6fa;
-@teal: #5bc0de;
+@teal: lighten(@blue-dodgerBlue, 25%);
+// @teal: #5bc0de;
 @normal-grey: #4f545c;
 @grey-mortar: #595959;
 @grey-nightRider: #303030;
@@ -80,7 +86,7 @@
 @comment-avatar-size-small: 32px;
 @comment-text-offset-small: @comment-avatar-size-small + @comment-text-left-margin;
 
-@table-border: 1px solid rgba(34, 36, 38, 0.15);
+@table-border: 1px solid darken(@blue-dodgerBlue, 85%);
 
 // Share Buttons
 @facebook-background-color: #3b5998;

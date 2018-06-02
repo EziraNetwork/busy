@@ -10,7 +10,8 @@ const PopoverContainer = props => (
         <div
           role="presentation"
           className="Popover__overlay"
-          onClick={() => props.onVisibleChange(false)}
+          onClick={() => props.onVisibleChange(false, 'click', props.trigger)}
+          onMouseOver={() => props.onVisibleChange(false, 'hover', props.trigger)}
         />
         {props.content}
       </div>

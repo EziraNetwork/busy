@@ -280,6 +280,7 @@ export default class Buttons extends React.Component {
     const showReblogLink = !ownPost && post.parent_author === '';
 
     let likeTooltip = <span>{intl.formatMessage({ id: 'like' })}</span>;
+    let dislikeTooltip = <span>{intl.formatMessage({ id: 'dislike' })}</span>;
     if (postState.isLiked) {
       likeTooltip = <span>{intl.formatMessage({ id: 'unlike', defaultMessage: 'Unlike' })}</span>;
     } else if (defaultVotePercent !== 10000) {
@@ -303,17 +304,120 @@ export default class Buttons extends React.Component {
             {pendingLike ? (
               <Icon type="loading" />
             ) : (
-              <i
-                className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
-              />
+              // <i
+              //   className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+              // />
+							<i
+								// className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+								className={`material-icons`}
+							> 
+								thumb_up
+							</i>
             )}
           </a>
         </BTooltip>
         {upVotes.length > 0 && (
           <span
-            className={classNames('Buttons__number', {
-              'Buttons__reactions-count': downVotes.length > 0,
-            })}
+            className="Buttons__number Buttons__reactions-count"
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
+            <BTooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </BTooltip>
+          </span>
+				)}
+				 <BTooltip title={likeTooltip}>
+          <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
+            {pendingLike ? (
+              <Icon type="loading" />
+            ) : (
+              <i
+								// className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+								className={`material-icons`}
+              > 
+								thumb_down
+							</i>
+            )}
+          </a>
+        </BTooltip>
+        {upVotes.length > 0 && (
+          <span
+            className="Buttons__number Buttons__reactions-count"
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
+            <BTooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </BTooltip>
+          </span>
+        )}
+				 <BTooltip title={likeTooltip}>
+          <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
+            {pendingLike ? (
+              <Icon type="loading" />
+            ) : (
+              <i
+								// className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+								className={`material-icons`}
+              > 
+								remove_red_eye
+							</i>
+            )}
+          </a>
+        </BTooltip>
+        {upVotes.length > 0 && (
+          <span
+            className="Buttons__number Buttons__reactions-count"
+            role="presentation"
+            onClick={this.handleShowReactions}
+          >
+            <BTooltip
+              title={
+                <div>
+                  {upVotesPreview}
+                  {upVotesMore}
+                </div>
+              }
+            >
+              <FormattedNumber value={upVotes.length} />
+              <span />
+            </BTooltip>
+          </span>
+        )}
+				 <BTooltip title={dislikeTooltip}>
+          <a role="presentation" className={likeClass} onClick={this.handleLikeClick}>
+            {pendingLike ? (
+              <Icon type="loading" />
+            ) : (
+              <i
+								// className={`iconfont icon-${this.state.sliderVisible ? 'right' : 'praise_fill'}`}
+								className={`material-icons`}
+              > 
+								toll
+							</i>
+            )}
+          </a>
+        </BTooltip>
+        {upVotes.length > 0 && (
+          <span
+            className="Buttons__number Buttons__reactions-count"
             role="presentation"
             onClick={this.handleShowReactions}
           >
@@ -342,7 +446,7 @@ export default class Buttons extends React.Component {
           <BTooltip
             title={intl.formatMessage({
               id: postState.reblogged ? 'reblog_reblogged' : 'reblog',
-              defaultMessage: postState.reblogged ? 'You already reblogged this post' : 'Reblog',
+              defaultMessage: postState.reblogged ? 'You already reposted this' : 'Repost',
             })}
           >
             <a role="presentation" className={rebloggedClass} onClick={this.handleShareClick}>

@@ -20,6 +20,7 @@ import QuickPostEditor from '../components/QuickPostEditor/QuickPostEditor';
   authenticated: getIsAuthenticated(state),
   loaded: getIsLoaded(state),
 }))
+
 class Page extends React.Component {
   static propTypes = {
     authenticated: PropTypes.bool.isRequired,
@@ -57,12 +58,15 @@ class Page extends React.Component {
     return (
       <div>
         <Helmet>
-          <title>Busy</title>
+          <title>
+						Ezira
+					</title>
           <meta name="robots" content={robots} />
         </Helmet>
         <ScrollToTop />
         <ScrollToTopOnMount />
-        <HeroBannerContainer />
+				{/* don't want a Hero Banner Container */}
+        {/* <HeroBannerContainer /> */}
         <div className="shifted">
           <div className="feed-layout container">
             <Affix className="leftContainer" stickPosition={77}>
@@ -70,11 +74,11 @@ class Page extends React.Component {
                 <LeftSidebar />
               </div>
             </Affix>
-            <Affix className="rightContainer" stickPosition={77}>
+            {/* <Affix className="rightContainer" stickPosition={77}>
               <div className="right">
                 <RightSidebar />
               </div>
-            </Affix>
+            </Affix> */}
             <div className="center">
               {displayTopicSelector && <TrendingTagsMenu />}
               {shouldDisplaySelector && (

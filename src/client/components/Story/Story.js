@@ -8,6 +8,7 @@ import {
   FormattedDate,
   FormattedTime,
 } from 'react-intl';
+
 import { Link, withRouter } from 'react-router-dom';
 import { Tag } from 'antd';
 import formatter from '../../helpers/steemitFormatter';
@@ -28,6 +29,8 @@ import NSFWStoryPreviewMessage from './NSFWStoryPreviewMessage';
 import HiddenStoryPreviewMessage from './HiddenStoryPreviewMessage';
 import DMCARemovedMessage from './DMCARemovedMessage';
 import PostedFrom from './PostedFrom';
+import PopoverMenu, { PopoverMenuItem } from '../PopoverMenu/PopoverMenu';
+import Popover from '../Popover';
 import './Story.less';
 
 @withRouter
@@ -85,9 +88,11 @@ class Story extends React.Component {
 
     this.state = {
       showHiddenStoryPreview: false,
-      displayLoginModal: false,
+			displayLoginModal: false,
+      profilePicturePopoverVisible: false,
+      usernamePopoverVisible: false,
     };
-
+		
     this.getDisplayStoryPreview = this.getDisplayStoryPreview.bind(this);
     this.handlePostPopoverMenuClick = this.handlePostPopoverMenuClick.bind(this);
     this.handleShowStoryPreview = this.handleShowStoryPreview.bind(this);
@@ -97,9 +102,41 @@ class Story extends React.Component {
     this.handleReportClick = this.handleReportClick.bind(this);
     this.handleShareClick = this.handleShareClick.bind(this);
     this.handleFollowClick = this.handleFollowClick.bind(this);
-    this.handleEditClick = this.handleEditClick.bind(this);
+		this.handleEditClick = this.handleEditClick.bind(this);
+		/** user story header hover actions */
+			/** profile picture */
+			this.handleMoreProfilePictureSelect = this.handleMoreProfilePictureSelect.bind(this);
+			this.handleMoreProfilePictureVisibleChange = this.handleMoreProfilePictureVisibleChange.bind(this);
+			/** username */
+			this.handleMoreUsernameSelect = this.handleMoreUsernameSelect.bind(this);
+			this.handleMoreUsernameVisibleChange = this.handleMoreUsernameVisibleChange.bind(this);
+
+	}
+	
+  handleMoreProfilePictureSelect(key) {
+    this.setState({ profilePicturePopoverVisible: false }, () => {
+      this.props.onMenuItemClick(key);
+    });
   }
 
+  handleMoreProfilePictureVisibleChange(visible, triggered, trigger) {
+		if(triggered == trigger){
+			this.setState({ profilePicturePopoverVisible: visible });
+		}
+	}
+	
+  handleMoreUsernameSelect(key) {
+    this.setState({ usernamePopoverVisible: false }, () => {
+      this.props.onMenuItemClick(key);
+    });
+  }
+
+  handleMoreUsernameVisibleChange(visible, triggered, trigger) {
+		if(triggered == trigger){
+			this.setState({ usernamePopoverVisible: visible });
+		}
+	}
+	
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(nextProps, this.props) || !_.isEqual(nextState, this.state);
   }
@@ -270,6 +307,11 @@ class Story extends React.Component {
       defaultVotePercent,
     } = this.props;
 
+		const { 
+			profilePicturePopoverVisible, 
+			usernamePopoverVisible,
+		} = this.state;
+
     if (isPostDeleted(post)) return <div />;
 
     const postAuthorReputation = formatter.reputation(post.author_reputation);
@@ -307,14 +349,44 @@ class Story extends React.Component {
         {rebloggedUI}
         <div className="Story__content">
           <div className="Story__header">
-            <Link to={`/@${post.author}`}>
-              <Avatar username={post.author} size={40} />
-            </Link>
+						<Popover
+              placement="bottom"
+              trigger="hover"
+              visible={profilePicturePopoverVisible}
+              onVisibleChange={this.handleMoreProfilePictureVisibleChange}
+              overlayStyle={{ position: 'fixed' }}
+              content={
+                <PopoverMenu onSelect={this.handleMoreProfilePictureSelect}>
+                  <PopoverMenuItem key="send-something">
+                    <FormattedMessage id="send_something" defaultMessage="Send Something" />
+                  </PopoverMenuItem>
+								</PopoverMenu>
+							}
+						>
+							<Link to={`/@${post.author}`}>
+								<Avatar username={post.author} size={40} />
+							</Link>
+						</Popover>
             <div className="Story__header__text">
               <span className="Story__header__flex">
                 <Link to={`/@${post.author}`}>
                   <h4>
-                    <span className="username">{post.author}</span>
+										<Popover
+											placement="bottom"
+											trigger="hover"
+											visible={usernamePopoverVisible}
+											onVisibleChange={this.handleMoreUsernameVisibleChange}
+											overlayStyle={{ position: 'fixed' }}
+											content={
+												<PopoverMenu onSelect={this.handleMoreUsernameSelect}>
+													<PopoverMenuItem key="send-something">
+														<FormattedMessage id="send_something" defaultMessage="Send Something" />
+													</PopoverMenuItem>
+												</PopoverMenu>
+											}
+										>
+											<span className="username">{post.author}</span>
+										</Popover>
                     <BTooltip title={intl.formatMessage({ id: 'reputation_score' })}>
                       <Tag>{postAuthorReputation}</Tag>
                     </BTooltip>

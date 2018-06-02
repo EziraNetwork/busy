@@ -64,7 +64,6 @@ export default class User extends React.Component {
   }
 
   state = {
-    popoverVisible: false,
     isFollowing: false,
   };
 
@@ -109,17 +108,8 @@ export default class User extends React.Component {
     }
   }
 
-  handleUserMenuSelect = key => {
-    if (key === 'transfer') {
-      this.props.openTransfer(this.props.match.params.name);
-      this.setState({
-        popoverVisible: false,
-      });
-    }
-  };
-
-  handleVisibleChange = visible => {
-    this.setState({ popoverVisible: visible });
+  handleTransferClick = () => {
+    this.props.openTransfer(this.props.match.params.name);
   };
 
   render() {
@@ -137,7 +127,7 @@ export default class User extends React.Component {
     const url = `${busyHost}/@${username}`;
     const displayedUsername = profile.name || username || '';
     const hasCover = !!profile.cover_image;
-    const title = `${displayedUsername} - Busy`;
+    const title = `${displayedUsername} Ezira`;
 
     const isSameUser = authenticated && authenticatedUser.name === username;
 
@@ -175,9 +165,7 @@ export default class User extends React.Component {
             isFollowing={isFollowing}
             hasCover={hasCover}
             onFollowClick={this.handleFollowClick}
-            isPopoverVisible={this.state.popoverVisible}
-            onSelect={this.handleUserMenuSelect}
-            handleVisibleChange={this.handleVisibleChange}
+            onTransferClick={this.handleTransferClick}
           />
         )}
         <div className="shifted">
@@ -188,7 +176,9 @@ export default class User extends React.Component {
               </div>
             </Affix>
             <Affix className="rightContainer" stickPosition={72}>
-              <div className="right">{loaded && <RightSidebar key={user.name} />}</div>
+							<div className="right">{loaded 
+							// && <RightSidebar key={user.name} />
+							}</div>
             </Affix>
             {loaded && <div className="center">{renderRoutes(this.props.route.routes)}</div>}
           </div>

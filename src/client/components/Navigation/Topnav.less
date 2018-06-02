@@ -16,8 +16,8 @@
 
     &-icon {
       margin-right: 4px;
-      font-size: 20px !important;
-      vertical-align: 2px;
+      font-size: 38px !important;
+      vertical-align: -9px;
     }
 
     &:hover,
@@ -283,6 +283,14 @@ div[data-dir='rtl'] .Topnav {
 }
 
 .Topnav__menu--icon {
-  width: 16px !important;
-  justify-content: flex-end !important;
+	width: auto;
+	// width: 16px !important;
+	margin-left: 10px !important;
+	margin-right: 10px !important;
+	justify-content: flex-end !important;
+	&>a {
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
+	}
 }
